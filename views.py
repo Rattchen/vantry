@@ -9,3 +9,11 @@ class HomeView(TemplateView):
         context["message"] = "Welcome to Vantry!"
         return context
     
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'vantry/product_details.html'
+    context_object_name = 'product'
+
+    ## If obj.off_id -> return OFF item
+    ## Else -> return DB item + info how to add an item
+        

@@ -1,0 +1,37 @@
+{% extends "vantry/base.html" %}
+{% block "title" %}{{product.name}}{% endblock %}
+{% block "content" %}
+<h1>{{product.name}}</h1>
+<h2>{{product.brand}}</h2>
+
+<!-- If product connected to OFF -->
+
+{% if product.off_id %}
+    <p>Info from OpenFoodFacts:</p>
+    <ul>
+        <li>Mock info: 30</li>
+        <li>Other mock info: 239</li>
+    </ul>
+
+    {% if product.quantity %}
+        <b>Currently in your vantry:</b> {{product.quantity}} packages
+    {% else %}
+        This product isn't currently in your vantry. Do you have it? <a href="#" class="btn btn-success">+</a>
+    {% endif %}
+    
+
+<!-- If product only in Vantry DB -->
+
+{% else %}
+    <b>Calories:</b> {{product.calories}}
+    <br/>
+    {% if product.quantity %}
+        <b>Currently in your vantry:</b> {{product.quantity}} packages
+    {% else %}
+        This product isn't currently in your vantry. Do you have it? <a href="#" class="btn btn-success">+</a>
+    {% endif %}
+    <br/><br/>
+    <p style="color: gray; font-style: italic;">Currently this product is not connected to an OpenFoodFacts item, so we can't fetch more info.</p>
+    <a href="#" style="color: rgb(154, 157, 196);">You can connect/add it here!</a>
+{% endif %}
+{% endblock %}
