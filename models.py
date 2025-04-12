@@ -1,7 +1,7 @@
 from django.db import models
 
 class Product(models.Model):
-    off_id = models.PositiveBigIntegerField(null=True, blank=True) #OpenFoodFacts ID used to fetch more data
+    barcode = models.PositiveBigIntegerField(null=True, blank=True) #Barcode used to fetch more data from OFF
     brand = models.CharField(max_length=250)
     name = models.CharField(max_length=250)
     calories = models.PositiveIntegerField()
