@@ -1,0 +1,11 @@
+{% extends "vantry/base.html" %}
+{% block "title" %}Item{% endblock %}
+{% block "content" %}
+<h1>{{product.name}}</h1>
+<h3>{{product.brand}}</h3>
+{% if product.calories %}
+Calories <i>(per 100 g/ml)</i>: {{product.calories}} kcal
+{% else %}
+No known calories yet.
+{% endif %}
+{% endblock %}

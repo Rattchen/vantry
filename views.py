@@ -1,6 +1,7 @@
 from django.views.generic import DetailView, TemplateView
 from openfoodfacts import API, APIVersion, Country, Environment, Flavor
 from .models import Product
+from .dto import ProductDTO
 
 class HomeView(TemplateView):
     template_name = 'vantry/home.html'
@@ -23,6 +24,7 @@ class OFFView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         api = API(user_agent="Vantry",
             username=None,
             password=None,
@@ -31,8 +33,10 @@ class OFFView(TemplateView):
             version=APIVersion.v2,
             environment=Environment.net
             )
-        code = "5900500047459"
-        item = api.product.get(code, fields=['product_name', 'nutriments', 'generic_name', 'brands', 'brands_hierarchy'])
-        context["item"] = item
-        print(item)
+        code = str(self.kwargs["barcode"])
+        fields=['code', 'product_name', 'nutriments', 'brands']
+        json = api.product.get(code, fields)
+
+        product = ProductDTO.from_json(json)
+        context["product"] = product
         return context
