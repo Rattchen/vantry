@@ -1,6 +1,6 @@
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from openfoodfacts import API, APIVersion, Country, Environment, Flavor
-from .models import Product
+from .models import Product, Storage
 from .dto import ProductDTO
 
 class HomeView(TemplateView):
@@ -40,3 +40,9 @@ class OFFView(TemplateView):
         product = ProductDTO.from_json(json)
         context["product"] = product
         return context
+
+class StorageListView(ListView):
+    model = Storage
+    template_name = "vantry/storage_list.html"
+    context_object_name = "storages"
+    #TODO: Select/prefetch related products and hide inside a bootstrap collapsible
